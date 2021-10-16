@@ -2,6 +2,7 @@
 FINDING FACTORS:
 - HOME_ADJ: how much more likely is a home team to win vs. an away team?
 - B2B_ADJ: how much more likly is a fresh team going to win vs. a team that played yesterday?
+- MOV_ADJ?
 """
 
 K_FACTOR = 16
@@ -15,6 +16,9 @@ def elo_calculator(
     away_b2b: int,
     home_b2b: int,
 ) -> tuple[float, float]:
+    """
+    Can use this function alone to calculate win probabilities (game to be played)
+    """
     expected_score_away = 1 / (1 + (10 ** ((home_team_elo - away_team_elo) / 400)))
 
     # adjusting for home ice advantage
@@ -43,5 +47,10 @@ def update_elo(
     expected_score_away, expected_score_home = elo_calculator(
         away_team_elo, home_team_elo, away_b2b, home_b2b
     )
-    # TODO: use expected scores and k factor to update team elos
+
+    home_score = 1 - away_score
+
+    away_team_elo += K_FACTOR * (away_score - expected_score_away)
+    home_team_elo += K_FACTOR * (home_score - expected_score_home)
+
     return away_team_elo, home_team_elo
