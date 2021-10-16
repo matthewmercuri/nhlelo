@@ -1,3 +1,9 @@
+"""
+FINDING FACTORS:
+- HOME_ADJ: how much more likely is a home team to win vs. an away team?
+- B2B_ADJ: how much more likly is a fresh team going to win vs. a team that played yesterday?
+"""
+
 K_FACTOR = 16
 HOME_ADJ = 5
 B2B_ADJ = 5
