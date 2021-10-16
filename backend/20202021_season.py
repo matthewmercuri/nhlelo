@@ -66,3 +66,7 @@ df = df.apply(_back_to_back, axis=1)
 df = df.apply(_apply_elo, axis=1)
 
 df.to_csv("backend/old_data/20202021seasonPROCESSED.csv")
+
+elo_df = pd.DataFrame.from_dict(teams_elo_dict, orient="index")
+elo_df = elo_df[0].sort_values(ascending=False)
+elo_df.to_csv("backend/old_data/20202021seasonELORESULTS.csv")
