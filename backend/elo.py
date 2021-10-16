@@ -5,7 +5,7 @@ FINDING FACTORS:
 """
 
 K_FACTOR = 16
-HOME_ADJ = 5
+HOME_ADJ = 3.3
 B2B_ADJ = 5
 
 
