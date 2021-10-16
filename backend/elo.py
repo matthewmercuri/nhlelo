@@ -14,7 +14,6 @@ def elo_calculator(
     home_team_elo: int,
     away_b2b: int,
     home_b2b: int,
-    team_map: dict = None,
 ) -> tuple[float, float]:
     expected_score_away = 1 / (1 + (10 ** ((home_team_elo - away_team_elo) / 400)))
 
@@ -32,5 +31,17 @@ def elo_calculator(
     return expected_score_away, expected_score_home
 
 
-# def update_elo(away_score: int, home_score: int) -> tuple[int, int]:
-#     return away_team_elo, home_team_elo
+def update_elo(
+    away_team_elo: int,
+    home_team_elo: int,
+    away_b2b: int,
+    home_b2b: int,
+    away_score: int,
+    team_map: dict = None,
+) -> tuple[int, int]:
+
+    expected_score_away, expected_score_home = elo_calculator(
+        away_team_elo, home_team_elo, away_b2b, home_b2b
+    )
+    # TODO: use expected scores and k factor to update team elos
+    return away_team_elo, home_team_elo
