@@ -40,7 +40,7 @@ def update_elo(
     home_team_elo: int,
     away_b2b: int,
     home_b2b: int,
-    away_score: int,
+    away_win: int,
     team_map: dict = None,
 ) -> tuple[int, int]:
     """
@@ -52,9 +52,9 @@ def update_elo(
         away_team_elo, home_team_elo, away_b2b, home_b2b
     )
 
-    home_score = 1 - away_score
+    home_win = 1 - away_win
 
-    away_team_elo += K_FACTOR * (away_score - expected_score_away)
-    home_team_elo += K_FACTOR * (home_score - expected_score_home)
+    away_team_elo += K_FACTOR * (away_win - expected_score_away)
+    home_team_elo += K_FACTOR * (home_win - expected_score_home)
 
     return away_team_elo, home_team_elo
