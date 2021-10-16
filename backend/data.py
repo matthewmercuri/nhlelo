@@ -24,7 +24,7 @@ def _current_season() -> str:
         return str(f"{other_season_year}{today_year}")
 
 
-def get_schedule():
+def get_schedule_results():
     _url = BASE_URL + "/schedule?season=" + _current_season()
     r = requests.get(_url)
     data = r.json()
@@ -41,3 +41,19 @@ def get_schedule():
         - totalMatches
         - games: obj containing games
     """
+
+    return dates_data
+
+
+def get_schedule_results_df():
+    data = {}
+    dates_data = get_schedule_results()
+
+    for day_data in dates_data:
+        data[day_data["date"]] = {}
+        # data[day_data["date"]]["games"] = day_data["games"]
+        print(day_data["games"][0]["teams"])
+        break
+
+
+get_schedule_results_df()
