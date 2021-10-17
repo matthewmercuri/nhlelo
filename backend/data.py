@@ -96,7 +96,7 @@ def get_pre_elo_df(save_locally: bool = False) -> pd.DataFrame:
     df = df.apply(_back_to_back, axis=1, schedule_df=df)
 
     if save_locally:
-        df.to_csv("backend/data/CurrentELO.csv")
+        df.to_csv("backend/data/CurrentScheduleResults.csv")
 
     return df
 
