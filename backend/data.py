@@ -1,4 +1,5 @@
-from datetime import datetime
+import datetime
+import numpy as np
 import pandas as pd
 import requests
 
@@ -8,11 +9,11 @@ https://gitlab.com/dword4/nhlapi/-/tree/master
 """
 
 BASE_URL = "https://statsapi.web.nhl.com/api/v1/"
-TODAY = datetime.now().strftime("%Y-%m-%d")
+TODAY = datetime.datetime.now().strftime("%Y-%m-%d")
 
 
 def _current_season() -> str:
-    today = datetime.today()
+    today = datetime.datetime.today()
     today_year = today.year
     today_month = today.month
 
@@ -22,6 +23,26 @@ def _current_season() -> str:
     else:
         other_season_year = today_year - 1
         return str(f"{other_season_year}{today_year}")
+
+
+def _back_to_back(row, schedule_df):
+    game_date = row["Date"]
+    prev_day = game_date - datetime.timedelta(1)
+    away_team = row["Away"]
+    home_team = row["Home"]
+
+    prev_date_df = schedule_df[schedule_df["Date"] == prev_day]
+
+    prev_date_away_teams = prev_date_df["Away"].tolist()
+    prev_date_home_teams = prev_date_df["Home"].tolist()
+    prev_date_teams = prev_date_away_teams + prev_date_home_teams
+
+    if away_team in prev_date_teams:
+        row["Away_B2B"] = 1
+    if home_team in prev_date_teams:
+        row["Home_B2B"] = 1
+
+    return row
 
 
 def get_schedule_results():
@@ -62,6 +83,11 @@ def get_schedule_results_df(save_locally: bool = False) -> pd.DataFrame:
                 data[f"{i},{j}"] = game_data_dict
 
     df = pd.DataFrame.from_dict(data, orient="index")
+    df["MOV"] = np.absolute(df["Away_Goals"] - df["Home_Goals"])
+    df["Date"] = pd.to_datetime(df["Date"])
+
+    df[["Away_B2B", "Home_B2B"]] = 0
+    df = df.apply(_back_to_back, axis=1, schedule_df=df)
 
     if save_locally:
         df.to_csv("backend/data/CurrentELO.csv")
