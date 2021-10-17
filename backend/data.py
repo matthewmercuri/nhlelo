@@ -46,7 +46,7 @@ def get_schedule_results():
     return dates_data
 
 
-def get_schedule_results_df():
+def get_schedule_results_df(save_locally: bool = False) -> pd.DataFrame:
     data = {}
     dates_data = get_schedule_results()
 
@@ -63,7 +63,10 @@ def get_schedule_results_df():
 
     df = pd.DataFrame.from_dict(data, orient="index")
 
+    if save_locally:
+        df.to_csv("backend/data/CurrentELO.csv")
+
     return df
 
 
-get_schedule_results_df()
+get_schedule_results_df(save_locally=True)
