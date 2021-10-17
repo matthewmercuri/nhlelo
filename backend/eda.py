@@ -73,16 +73,18 @@ def back_to_back_disadvantage():
     print(f"A back to back team won {b2b_win_percent}% of games")
 
 
-# def elo_adj():
-#     elo_df = get_elo_df()
-#     elo_mean = elo_df[0].mean()
-#     elo_std = elo_df[0].std()
+def elo_adj():
+    # ISSUE: elo_df is actually a series
+    elo_df = get_elo_df()
+    elo_mean = elo_df[0].mean()
+    elo_std = elo_df[0].std()
 
-#     elo_df["Z_Score"] = elo_df.apply(lambda x: (x - elo_mean) / elo_std, axis=1)
+    elo_df["Z_Score"] = 0
+    elo_df["Z_Score"] = elo_df.apply(lambda x: (x - elo_mean) / elo_std)
 
-#     print(elo_df)
+    print(elo_df)
 
 
 # find_home_ice_advantage()
 # back_to_back_disadvantage()
-# elo_adj()
+elo_adj()
