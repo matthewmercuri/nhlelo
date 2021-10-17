@@ -1,5 +1,5 @@
 from datetime import datetime
-import json
+import pandas as pd
 import requests
 
 """
@@ -16,7 +16,7 @@ def _current_season() -> str:
     today_year = today.year
     today_month = today.month
 
-    if today_month >= 5:
+    if today_month >= 6:
         other_season_year = today_year + 1
         return str(f"{today_year}{other_season_year}")
     else:
@@ -25,11 +25,6 @@ def _current_season() -> str:
 
 
 def get_schedule_results():
-    _url = BASE_URL + "/schedule?season=" + _current_season()
-    r = requests.get(_url)
-    data = r.json()
-
-    dates_data = data["dates"]
     """
     dates_data is a list (array):
     - each day is its on list item (object)
@@ -42,6 +37,12 @@ def get_schedule_results():
         - games: obj containing games
     """
 
+    _url = BASE_URL + "/schedule?season=" + _current_season()
+    r = requests.get(_url)
+    data = r.json()
+
+    dates_data = data["dates"]
+
     return dates_data
 
 
@@ -49,11 +50,20 @@ def get_schedule_results_df():
     data = {}
     dates_data = get_schedule_results()
 
-    for day_data in dates_data:
-        data[day_data["date"]] = {}
-        # data[day_data["date"]]["games"] = day_data["games"]
-        print(day_data["games"][0]["teams"])
-        break
+    for i, day_data in enumerate(dates_data):
+        for j, game_data in enumerate(day_data["games"]):
+            if game_data["gameType"] != "PR":
+                game_data_dict = {}
+                game_data_dict["Date"] = day_data["date"]
+                game_data_dict["Away"] = game_data["teams"]["away"]["team"]["name"]
+                game_data_dict["Away_Goals"] = game_data["teams"]["away"]["score"]
+                game_data_dict["Home"] = game_data["teams"]["home"]["team"]["name"]
+                game_data_dict["Home_Goals"] = game_data["teams"]["home"]["score"]
+                data[f"{i},{j}"] = game_data_dict
+
+    df = pd.DataFrame.from_dict(data, orient="index")
+
+    return df
 
 
 get_schedule_results_df()
