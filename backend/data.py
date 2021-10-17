@@ -6,6 +6,9 @@ import requests
 """
 API DOCUMENTATION:
 https://gitlab.com/dword4/nhlapi/-/tree/master
+
+NOTES:
+- may want to break this up into classes with static methods eventually
 """
 
 BASE_URL = "https://statsapi.web.nhl.com/api/v1/"
@@ -67,7 +70,10 @@ def get_schedule_results():
     return dates_data
 
 
-def get_elo_df(save_locally: bool = False) -> pd.DataFrame:
+def get_pre_elo_df(save_locally: bool = False) -> pd.DataFrame:
+    """
+    Returns the df to be used for elo calculation
+    """
     data = {}
     dates_data = get_schedule_results()
 
@@ -93,3 +99,10 @@ def get_elo_df(save_locally: bool = False) -> pd.DataFrame:
         df.to_csv("backend/data/CurrentELO.csv")
 
     return df
+
+
+def get_current_teams_list() -> list:
+    df = get_pre_elo_df()
+    teams = list(set(df["Home"].tolist()))
+
+    return teams
