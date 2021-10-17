@@ -1,44 +1,65 @@
-import pandas as pd
-
-from data import get_current_teams_list
-
-"""
-If change in ELO methodology, rerun the prev_season script to get updated
-elo caclulations
-"""
+from data import get_pre_elo_df
+from elo import elo_calculator, update_elo
+from elo_primer import get_starting_elo_dict
 
 
-def get_previous_year_elo_df(previous_year):
-    if previous_year == "20202021":
-        starting_elo_df = pd.read_csv("backend/old_data/20202021seasonELOWITHADJ.csv")
-        starting_elo_df.rename(
-            columns={starting_elo_df.columns[0]: "team"}, inplace=True
-        )
+class EloSystem:
+    """
+    Eventually may want to load dict from cache
+    """
 
-    return starting_elo_df
+    TEAM_ELO_MAP = get_starting_elo_dict()
 
+    @staticmethod
+    def _get_pre_elo_df():
+        df = get_pre_elo_df()
+        df[["Away_ELO", "Home_ELO"]] = 0
+        df[["Away_Win_Prob", "Home_Win_Prob"]] = 0
+        return df
 
-def get_starting_elo_dict(previous_year="20202021"):
-    if previous_year != "20202021":
-        raise KeyError(f"{previous_year} has not been implemented yet")
+    @classmethod
+    def _add_elos(cls, row):
+        away = row["Away"]
+        home = row["Home"]
 
-    current_teams_list = get_current_teams_list()
-    starting_elo_df = get_previous_year_elo_df(previous_year)
+        row[["Away_ELO", "Home_ELO"]] = cls.TEAM_ELO_MAP[away], cls.TEAM_ELO_MAP[home]
 
-    starting_team_elo_dict = {}
-    for team in current_teams_list:
-        if team == "Montréal Canadiens":
-            _team = "Montreal Canadiens"
+        return row
+
+    @classmethod
+    def _process_game(cls, row):
+        if (row["Away_Goals"] == 0) and (row["Home_Goals"] == 0):
+            win_prob_away, win_prob_home = elo_calculator(
+                row["Away_ELO"], row["Home_ELO"], row["Away_B2B"], row["Home_B2B"]
+            )
+            row[["Away_Win_Prob", "Home_Win_Prob"]] = win_prob_away, win_prob_home
         else:
-            _team = team
+            if row["Away_Goals"] > row["Home_Goals"]:
+                away_win = 1
+            else:
+                away_win = 0
 
-        try:
-            team_entry = starting_elo_df[starting_elo_df["team"] == _team]
-            team_start_elo = team_entry["New_ELO"].values.tolist()[0]
-        except IndexError:
-            # may be incorrect for other years (start at mean of prev elos?)
-            team_start_elo = 1500
+            away_team_elo, home_team_elo = update_elo(
+                row["Away_ELO"],
+                row["Home_ELO"],
+                row["Away_B2B"],
+                row["Home_B2B"],
+                away_win,
+            )
 
-        starting_team_elo_dict[team] = team_start_elo
+            row[["Away_ELO", "Home_ELO"]] = away_team_elo, home_team_elo
+            row[["Away_Win_Prob", "Home_Win_Prob"]] = away_win, (1 - away_win)
+            cls.TEAM_ELO_MAP[row["Away"]] = away_team_elo
+            cls.TEAM_ELO_MAP[row["Home"]] = home_team_elo
 
-    return starting_team_elo_dict
+        return row
+
+    @classmethod
+    def process_elo_df(cls):
+        df = cls._get_pre_elo_df()
+        df = df.apply(cls._add_elos, axis=1)
+        df = df.apply(cls._process_game, axis=1)
+        df.to_csv("save.csv")
+
+
+EloSystem.process_elo_df()

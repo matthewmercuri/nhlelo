@@ -41,13 +41,7 @@ def update_elo(
     away_b2b: int,
     home_b2b: int,
     away_win: int,
-    team_map: dict = None,
 ) -> tuple[int, int]:
-    """
-    TODO:
-    - update 'team map' if provided (insert new ELOs)
-    """
-
     expected_score_away, expected_score_home = elo_calculator(
         away_team_elo, home_team_elo, away_b2b, home_b2b
     )
