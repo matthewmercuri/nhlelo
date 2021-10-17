@@ -5,7 +5,9 @@ from elo_primer import get_starting_elo_dict
 
 class EloSystem:
     """
-    Eventually may want to load dict from cache
+    TODO:
+    - add caching system
+    - check if team_elo_map is resetting
     """
 
     TEAM_ELO_MAP = get_starting_elo_dict()
@@ -59,7 +61,13 @@ class EloSystem:
         df = cls._get_pre_elo_df()
         df = df.apply(cls._add_elos, axis=1)
         df = df.apply(cls._process_game, axis=1)
-        df.to_csv("save.csv")
+
+        return df
+
+    @classmethod
+    def get_elo_dict(cls):
+        cls.process_elo_df()
+        return cls.TEAM_ELO_MAP
 
 
 EloSystem.process_elo_df()
