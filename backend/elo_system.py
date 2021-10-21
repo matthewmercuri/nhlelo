@@ -1,3 +1,5 @@
+import pandas as pd
+
 from data import get_pre_elo_df
 from elo import elo_calculator, update_elo
 from elo_primer import get_starting_elo_dict
@@ -56,7 +58,7 @@ class EloSystem:
         return row
 
     @classmethod
-    def process_elo_df(cls, save_locally: bool = False):
+    def process_elo_df(cls, save_locally: bool = False) -> pd.DataFrame:
         df = cls._get_pre_elo_df()
         df = df.apply(cls._add_elos, axis=1)
         df = df.apply(cls._process_game, axis=1)
