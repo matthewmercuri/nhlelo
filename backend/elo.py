@@ -11,8 +11,8 @@ B2B_ADJ = 0.10
 
 
 def elo_calculator(
-    away_team_elo: int,
-    home_team_elo: int,
+    away_team_elo: float,
+    home_team_elo: float,
     away_b2b: int,
     home_b2b: int,
 ) -> tuple[float, float]:
@@ -36,12 +36,12 @@ def elo_calculator(
 
 
 def update_elo(
-    away_team_elo: int,
-    home_team_elo: int,
+    away_team_elo: float,
+    home_team_elo: float,
     away_b2b: int,
     home_b2b: int,
     away_win: int,
-) -> tuple[int, int]:
+) -> tuple[float, float]:
     expected_score_away, expected_score_home = elo_calculator(
         away_team_elo, home_team_elo, away_b2b, home_b2b
     )

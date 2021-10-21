@@ -7,7 +7,6 @@ class EloSystem:
     """
     TODO:
     - add caching system
-    - check if team_elo_map is resetting
     """
 
     TEAM_ELO_MAP = get_starting_elo_dict()
@@ -42,8 +41,8 @@ class EloSystem:
                 away_win = 0
 
             away_team_elo, home_team_elo = update_elo(
-                row["Away_ELO"],
-                row["Home_ELO"],
+                cls.TEAM_ELO_MAP[row["Away"]],
+                cls.TEAM_ELO_MAP[row["Home"]],
                 row["Away_B2B"],
                 row["Home_B2B"],
                 away_win,
@@ -57,10 +56,13 @@ class EloSystem:
         return row
 
     @classmethod
-    def process_elo_df(cls):
+    def process_elo_df(cls, save_locally: bool = False):
         df = cls._get_pre_elo_df()
         df = df.apply(cls._add_elos, axis=1)
         df = df.apply(cls._process_game, axis=1)
+
+        if save_locally:
+            df.to_csv("backend/data/CurrentELO.csv")
 
         return df
 
