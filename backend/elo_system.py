@@ -9,6 +9,7 @@ class EloSystem:
     """
     TODO:
     - add caching system
+    - handle for case when trying to use the class and there's a game in progress
     """
 
     TEAM_ELO_MAP = get_starting_elo_dict()
@@ -18,6 +19,7 @@ class EloSystem:
         df = get_pre_elo_df()
         df[["Away_ELO", "Home_ELO"]] = 0
         df[["Away_Win_Prob", "Home_Win_Prob"]] = 0
+        df[["Away_Decimal_Odds", "Home_Decimal_Odds"]] = 0
         return df
 
     @classmethod
@@ -36,6 +38,9 @@ class EloSystem:
                 row["Away_ELO"], row["Home_ELO"], row["Away_B2B"], row["Home_B2B"]
             )
             row[["Away_Win_Prob", "Home_Win_Prob"]] = win_prob_away, win_prob_home
+            row[["Away_Decimal_Odds", "Home_Decimal_Odds"]] = (1 / win_prob_away), (
+                1 / win_prob_home
+            )
         else:
             if row["Away_Goals"] > row["Home_Goals"]:
                 away_win = 1
@@ -74,4 +79,4 @@ class EloSystem:
         return cls.TEAM_ELO_MAP
 
 
-EloSystem.process_elo_df()
+EloSystem.process_elo_df(save_locally=True)
