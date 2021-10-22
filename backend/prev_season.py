@@ -73,5 +73,6 @@ elo_df = elo_df.sort_values(by=[elo_df.columns[0]], ascending=False)
 elo_df.to_csv("backend/old_data/20202021seasonELORESULTS.csv")
 
 
+# call this function as needed
 def get_elo_df() -> pd.DataFrame:
     return elo_df
