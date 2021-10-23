@@ -10,7 +10,8 @@ elo caclulations
 
 def get_previous_year_elo_df(previous_year: str) -> pd.DataFrame:
     if previous_year == "20202021":
-        starting_elo_df = pd.read_csv("backend/old_data/20202021seasonELOWITHADJ.csv")
+        # may need to change the way csv are written and read (OS module)
+        starting_elo_df = pd.read_csv("./old_data/20202021seasonELOWITHADJ.csv")
         starting_elo_df.rename(
             columns={starting_elo_df.columns[0]: "team"}, inplace=True
         )

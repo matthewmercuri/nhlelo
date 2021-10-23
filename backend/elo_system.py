@@ -79,6 +79,3 @@ class EloSystem:
     def get_elo_dict(cls):
         cls.process_elo_df()
         return cls.TEAM_ELO_MAP
-
-
-EloSystem.process_elo_df(save_locally=True)
