@@ -10,6 +10,8 @@ class EloSystem:
     TODO:
     - add caching system
     - handle for case when trying to use the class and there's a game in progress
+    - document what the pre_elo_df should like like (columns)
+    - make get_starting_elo_dict call update.py?
     """
 
     TEAM_ELO_MAP = get_starting_elo_dict()
