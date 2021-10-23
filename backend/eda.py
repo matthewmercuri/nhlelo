@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
 
-from prev_season import get_elo_df
-
 df = pd.read_csv("backend/old_data/20202021seasonPROCESSED.csv", index_col=0)
 # df = pd.read_csv("backend/old_data/20202021season.csv", index_col=0)
 # df = pd.read_csv("backend/old_data/20192020season.csv", index_col=0)
@@ -71,27 +69,6 @@ def back_to_back_disadvantage():
     print(new_df)
 
     print(f"A back to back team won {b2b_win_percent}% of games")
-
-
-def elo_adj():
-    elo_df = get_elo_df()
-    elo_mean = elo_df[0].mean()
-    elo_std = elo_df[0].std()
-
-    elo_df["Z_Score"] = 0
-    elo_df["Z_Score"] = elo_df.apply(lambda x: (x[0] - elo_mean) / elo_std, axis=1)
-    elo_df["Side_of_Mean"] = elo_df["Z_Score"].apply(lambda x: -1 if x < 0 else 1)
-    elo_df["Log_of_Z_plus_One"] = elo_df["Z_Score"].apply(
-        lambda x: np.log(np.absolute(x) + 1)
-    )
-    elo_df["New_ELO"] = elo_df.apply(
-        lambda x: elo_mean + (x["Log_of_Z_plus_One"] * elo_std * x["Side_of_Mean"]),
-        axis=1,
-    )
-
-    elo_df.to_csv("backend/old_data/20202021seasonELOWITHADJ.csv")
-
-    return elo_df
 
 
 # find_home_ice_advantage()

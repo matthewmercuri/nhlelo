@@ -3,12 +3,12 @@ import pandas as pd
 from data import get_current_teams_list
 
 """
-If change in ELO methodology, rerun the prev_season script to get updated
+If change in ELO methodology, rerun the update.py script to get updated
 elo caclulations
 """
 
 
-def get_previous_year_elo_df(previous_year):
+def get_previous_year_elo_df(previous_year: str) -> pd.DataFrame:
     if previous_year == "20202021":
         starting_elo_df = pd.read_csv("backend/old_data/20202021seasonELOWITHADJ.csv")
         starting_elo_df.rename(
@@ -18,7 +18,11 @@ def get_previous_year_elo_df(previous_year):
     return starting_elo_df
 
 
-def get_starting_elo_dict(previous_year="20202021"):
+def get_starting_elo_dict(previous_year: str = "20202021") -> dict:
+    """
+    This function is what the ELO System uses to inform initial team
+    ELOs
+    """
     if previous_year != "20202021":
         raise KeyError(f"{previous_year} has not been implemented yet")
 
