@@ -12,7 +12,6 @@ app = FastAPI()
 TODO:
 - pull from memory instead of db?
 - perhaps pymongo is already doing this?
-- what to do with games in progress?
 """
 
 
