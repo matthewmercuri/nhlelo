@@ -54,11 +54,18 @@ def elo_table():
 
 @app.get("/teamelos")
 def team_elos():
-    # return the elo of all teams
-    team_elo_dict = EloSystem.get_elo_dict()
-    team_elo_dict = dict(
-        sorted(team_elo_dict.items(), key=operator.itemgetter(1), reverse=True)
-    )
+    team_elo_dict = db.team_elos.find_one({"date_generated": str(date.today())})
+
+    if team_elo_dict is None:
+        team_elo_dict = EloSystem.get_elo_dict()
+        team_elo_dict = dict(
+            sorted(team_elo_dict.items(), key=operator.itemgetter(1), reverse=True)
+        )
+        team_elo_dict["date_generated"] = str(date.today())
+        db.team_elos.insert_one(team_elo_dict)
+
+    team_elo_dict["id"] = str(team_elo_dict.pop("_id"))  # pydantic needs this line
+
     return team_elo_dict
 
 
