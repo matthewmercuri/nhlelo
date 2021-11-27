@@ -35,7 +35,9 @@ class EloSystem:
 
     @classmethod
     def _process_game(cls, row):
-        if (row["Away_Goals"] == 0) and (row["Home_Goals"] == 0):
+        if ((row["Away_Goals"] == 0) and (row["Home_Goals"] == 0)) or row[
+            "Status"
+        ] != "Final":
             win_prob_away, win_prob_home = elo_calculator(
                 row["Away_ELO"], row["Home_ELO"], row["Away_B2B"], row["Home_B2B"]
             )

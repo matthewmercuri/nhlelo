@@ -10,11 +10,9 @@ app = FastAPI()
 
 """
 TODO:
-- implement caching system
-- make updates to db by date
-- first retrieve res in db
-- see if the date is valid
-- regen if not
+- pull from memory instead of db?
+- perhaps pymongo is already doing this?
+- what to do with games in progress?
 """
 
 

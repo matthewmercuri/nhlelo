@@ -86,6 +86,7 @@ def get_pre_elo_df(save_locally: bool = False) -> pd.DataFrame:
                 game_data_dict["Away_Goals"] = game_data["teams"]["away"]["score"]
                 game_data_dict["Home"] = game_data["teams"]["home"]["team"]["name"]
                 game_data_dict["Home_Goals"] = game_data["teams"]["home"]["score"]
+                game_data_dict["Status"] = game_data["status"]["detailedState"]
                 data[f"{i},{j}"] = game_data_dict
 
     df = pd.DataFrame.from_dict(data, orient="index")
