@@ -13,4 +13,10 @@ async def root():
 @app.get("/elotable")
 def elo_table():
     elo_df = EloSystem.process_elo_df()
-    return elo_df.to_json(orient="table")
+    return elo_df.to_dict(orient="index")
+
+
+@app.put("/analytics")
+def analytics():
+    # EXPIREMENTAL: track things like page visits
+    pass
