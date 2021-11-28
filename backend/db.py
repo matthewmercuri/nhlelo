@@ -1,10 +1,14 @@
 from dotenv import load_dotenv
+import logging
 import os
 from pymongo import MongoClient
 
-load_dotenv()
+try:
+    load_dotenv()
 
-MONGO_URI = os.getenv("MONGO_URI")
+    MONGO_URI = os.environ["MONGO_URI"]
 
-client = MongoClient(MONGO_URI)
-db = client["nhlelo"]
+    client = MongoClient(MONGO_URI)
+    db = client["nhlelo"]
+except:
+    logging.debug("error loading env variable")
