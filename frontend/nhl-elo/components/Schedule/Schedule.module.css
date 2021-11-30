@@ -1,4 +1,4 @@
 .schedule {
   background-color: red;
-  height: 10vh;
+  width: var(--large-content-width)
 }

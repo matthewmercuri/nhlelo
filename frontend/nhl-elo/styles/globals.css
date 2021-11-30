@@ -3,6 +3,7 @@
 :root {
   --primary: #1c1196;
   --primary-text: white;
+  --large-content-width: 1250px;
 }
 
 * {
