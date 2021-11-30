@@ -53,8 +53,12 @@ def elo_table():
         db.elo_table.insert_one(elo_df)
 
     elo_df["id"] = str(elo_df.pop("_id"))  # pydantic needs this line
+    date_generated = elo_df.pop("date_generated")
+    id = elo_df.pop("id")
 
-    return elo_df
+    response = {"data": [elo_df], "meta": {"date_generated": date_generated, "id": id}}
+
+    return response
 
 
 @app.get("/teamelos")
@@ -70,8 +74,15 @@ def team_elos():
         db.team_elos.insert_one(team_elo_dict)
 
     team_elo_dict["id"] = str(team_elo_dict.pop("_id"))  # pydantic needs this line
+    date_generated = team_elo_dict.pop("date_generated")
+    id = team_elo_dict.pop("id")
 
-    return team_elo_dict
+    response = {
+        "data": [team_elo_dict],
+        "meta": {"date_generated": date_generated, "id": id},
+    }
+
+    return response
 
 
 @app.put("/analytics")
