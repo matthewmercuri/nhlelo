@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useQuery } from "react-query"
+import Game from '../Game'
 import styles from './Schedule.module.css'
 
 export default function Schedule() {
@@ -11,6 +12,11 @@ export default function Schedule() {
 
   return (
     <div className={styles.schedule}>
+      {!isLoading ? (
+        data.data.map((game) => {
+          return <Game key={`${game.Away}${game.Home}`} gameData={game} />
+        })
+      ) : <p>loading...</p>}
     </div>
   )
 }

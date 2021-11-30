@@ -2,8 +2,13 @@
 
 :root {
   --primary: #1c1196;
-  --primary-text: white;
+  --secondary: #f5f5f5;
+  --primary-text: rgb(14, 14, 14);
   --large-content-width: 1250px;
+  --font-large: 1.35rem;
+  --font-medium: 1.15rem;
+  --fail: rgb(211, 0, 0);
+  --success: rgb(1, 134, 1);
 }
 
 * {
