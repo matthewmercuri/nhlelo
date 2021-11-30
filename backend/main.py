@@ -56,7 +56,10 @@ def elo_table():
     date_generated = elo_df.pop("date_generated")
     id = elo_df.pop("id")
 
-    response = {"data": [elo_df], "meta": {"date_generated": date_generated, "id": id}}
+    response = {
+        "data": [game for _, game in elo_df.items()],
+        "meta": {"date_generated": date_generated, "id": id},
+    }
 
     return response
 
@@ -78,7 +81,7 @@ def team_elos():
     id = team_elo_dict.pop("id")
 
     response = {
-        "data": [team_elo_dict],
+        "data": [{team: elo} for team, elo in team_elo_dict.items()],
         "meta": {"date_generated": date_generated, "id": id},
     }
 
