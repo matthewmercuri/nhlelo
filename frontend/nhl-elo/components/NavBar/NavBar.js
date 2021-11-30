@@ -6,7 +6,7 @@ export default function NavBar() {
     <div className={styles.NavBar}>
       <ul>
         <li><Link href='/'>Home</Link></li>
-        <li><Link href='/rankings'>Rankings</Link></li>
+        <li><Link href='/ranks'>Rankings</Link></li>
       </ul>
     </div>
   )
