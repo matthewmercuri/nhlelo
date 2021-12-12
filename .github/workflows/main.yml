@@ -16,7 +16,7 @@ jobs:
           heroku_app_name: "nhl-elo-api-app" #Must be unique in Heroku
           heroku_email: "mercurimatthew@gmail.com"
           usedocker: true
-          docker_build_args: MONGO_URI
+          docker_build_args: HD_MONGO_URI
           appdir: "backend" # <- This will point to the api folder in your project
         env:
-          MONGO_URI: ${{secrets.MONGO_URI}}
+          HD_MONGO_URI: ${{secrets.MONGO_URI}}
