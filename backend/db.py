@@ -3,8 +3,8 @@ import logging
 import os
 from pymongo import MongoClient
 
-logging.debug("===== TRYING TO LOAD ENV VARS =====")
-logging.debug(f"ENV VARS === {os.environ}")
+print("===== TRYING TO LOAD ENV VARS =====")
+print(f"ENV VARS === {os.environ}")
 print("===== THIS IS ONLY A TEST =====")
 
 try:
