@@ -8,4 +8,6 @@ RUN pip3 install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY . /code/
 
+ENV MONGO_URI=${MONGO_URI}
+
 CMD uvicorn main:app --host 0.0.0.0 --port $PORT
