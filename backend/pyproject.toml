@@ -12,6 +12,7 @@ numpy = "^1.21.2"
 fastapi = {extras = ["all"], version = "^0.70.0"}
 pymongo = "^3.12.1"
 python-dotenv = "^0.19.2"
+pytest = "^6.2.5"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
