@@ -2,7 +2,7 @@ import datetime
 import numpy as np
 import pandas as pd
 
-from elo import update_elo
+from app.elo import update_elo
 
 STARTING_ELO = 1500
 

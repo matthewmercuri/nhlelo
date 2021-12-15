@@ -1,6 +1,6 @@
 import pandas as pd
 
-from data import get_current_teams_list
+from app.data import get_current_teams_list
 
 """
 If change in ELO methodology, rerun the update.py script to get updated

@@ -1,8 +1,8 @@
 import pandas as pd
 
-from data import get_pre_elo_df
-from elo import elo_calculator, update_elo
-from elo_primer import get_starting_elo_dict
+from app.data import get_pre_elo_df
+from app.elo import elo_calculator, update_elo
+from app.elo_primer import get_starting_elo_dict
 
 
 class EloSystem:

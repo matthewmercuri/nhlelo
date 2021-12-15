@@ -3,8 +3,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import operator
 
-from db import db
-from elo_system import EloSystem
+from app.db import db
+from app.elo_system import EloSystem
 
 app = FastAPI()
 
