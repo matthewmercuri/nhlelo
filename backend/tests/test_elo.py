@@ -1,4 +1,4 @@
-from app.elo import elo_calculator
+from app.elo import elo_calculator, update_elo
 
 """
 WD: backend
@@ -22,3 +22,13 @@ def test_elo_calculator():
     expected_score_away, expected_score_home = elo_calculator(1600, 1400, 0, 0)
     assert round(expected_score_away, 3) == 0.727
     assert round(expected_score_home, 3) == 0.273
+
+
+def test_update_elo():
+    away_team_elo, home_team_elo = update_elo(1500, 1500, 0, 0, 0)
+    assert away_team_elo == 1492.528
+    assert home_team_elo == 1507.472
+
+    away_team_elo, home_team_elo = update_elo(1500, 1500, 0, 0, 1)
+    assert away_team_elo == 1508.528
+    assert home_team_elo == 1491.472
