@@ -43,7 +43,7 @@ class Data:
         # initializing team ELO store
         self.ELOStore = ELOStore()
 
-    def prep_schedule_df(self) -> pd.DataFrame:
+    def _prep_schedule_df(self) -> pd.DataFrame:
         df = NHLAPI.get_schedule_df()
 
         # removing preseaon games
@@ -56,6 +56,8 @@ class Data:
         df["homeB2b"] = 0
         df["awayWinProb"] = 0
         df["homeWinProb"] = 0
+        df["awayDecimalOdds"] = 0
+        df["homeDecimalOdds"] = 0
 
         return df
 
@@ -81,8 +83,10 @@ class Data:
 
         if x["status"] == "Final":
             if x["awayScore"] > x["homeScore"]:
+                x["awayWinProb"], x["homeWinProb"] = 1, -1
                 away_win = 1
             else:
+                x["awayWinProb"], x["homeWinProb"] = -1, 1
                 away_win = 0
 
             new_away_elo, new_home_elo = update_elo(
@@ -101,15 +105,17 @@ class Data:
 
         return x
 
-    def post_process_df(self, df):
+    def _post_process_df(self, df):
         df["dateTimeEst"] = pd.DatetimeIndex(df["date"]).tz_convert("US/Eastern")
+        df["awayDecimalOdds"] = 1 / df["awayWinProb"]
+        df["homeDecimalOdds"] = 1 / df["homeWinProb"]
 
         return df
 
     def process_schedule_df(self) -> pd.DataFrame:
-        df = self.prep_schedule_df()
+        df = self._prep_schedule_df()
         df = df.apply(self._process_game_row, args=(df,), axis=1)
-        df = self.post_process_df(df)
+        df = self._post_process_df(df)
 
         return df
 
@@ -120,9 +126,4 @@ class Data:
         df = pd.DataFrame.from_dict(team_elos_dict, orient="index")
         df.sort_values(by=[0], ascending=False, inplace=True)
 
-        print(df)
-
-
-# testing - to remove
-Data = Data()
-Data.get_team_elos()
+        return df
