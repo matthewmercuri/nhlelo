@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import operator
 
 from app.db import db
-from app.elo_system import EloSystem
+from app.data import Data
 
 app = FastAPI()
 
@@ -23,20 +23,6 @@ TODO:
 """
 
 
-def _get_recent_games(elo_df):
-    today = str(date.today())
-    yesterday = str(date.today() - timedelta(days=1))
-    tomorrow = str(date.today() + timedelta(days=1))
-    acceptable_dates = [yesterday, today, tomorrow]
-
-    for index, game in elo_df.copy().items():
-        game_date = game["Date"].strftime("%Y-%m-%d")
-        if game_date not in acceptable_dates:
-            del elo_df[index]
-
-    return elo_df
-
-
 @app.get("/")
 async def root():
     return {"message": "NHL ELO API"}
@@ -47,8 +33,7 @@ def elo_table():
     elo_df = db.elo_table.find_one({"date_generated": str(date.today())})
 
     if elo_df is None:
-        elo_df = EloSystem.process_elo_df().to_dict(orient="index")
-        elo_df = _get_recent_games(elo_df)
+        elo_df = Data.process_schedule_df().to_dict(orient="index")
         elo_df["date_generated"] = str(date.today())
         db.elo_table.insert_one(elo_df)
 
@@ -69,7 +54,7 @@ def team_elos():
     team_elo_dict = db.team_elos.find_one({"date_generated": str(date.today())})
 
     if team_elo_dict is None:
-        team_elo_dict = EloSystem.get_elo_dict()
+        team_elo_dict = Data.get_team_elos().to_dict(orient="index")
         team_elo_dict = dict(
             sorted(team_elo_dict.items(), key=operator.itemgetter(1), reverse=True)
         )

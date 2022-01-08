@@ -1,10 +1,8 @@
 import pandas as pd
 import pytz
 
-# from app.elo import elo_calculator, update_elo
-# from app.nhl_api import NHLAPI
-from elo import elo_calculator, update_elo
-from nhl_api import NHLAPI
+from app.elo import elo_calculator, update_elo
+from app.nhl_api import NHLAPI
 
 """
 Handles all the necessary data for the API. Should a data
