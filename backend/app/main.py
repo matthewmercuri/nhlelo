@@ -28,12 +28,13 @@ async def root():
     return {"message": "NHL ELO API"}
 
 
-@app.get("/elotable")
+@app.get("/eloschedule")
 def elo_table():
     elo_df = db.elo_table.find_one({"date_generated": str(date.today())})
 
     if elo_df is None:
-        elo_df = Data.process_schedule_df().to_dict(orient="index")
+        DataGrabber = Data()
+        elo_df = DataGrabber.process_schedule_df().to_dict(orient="index")
         elo_df["date_generated"] = str(date.today())
         db.elo_table.insert_one(elo_df)
 
@@ -49,15 +50,13 @@ def elo_table():
     return response
 
 
-@app.get("/teamelos")
+@app.get("/teamelotable")
 def team_elos():
     team_elo_dict = db.team_elos.find_one({"date_generated": str(date.today())})
 
     if team_elo_dict is None:
-        team_elo_dict = Data.get_team_elos().to_dict(orient="index")
-        team_elo_dict = dict(
-            sorted(team_elo_dict.items(), key=operator.itemgetter(1), reverse=True)
-        )
+        DataGrabber = Data()
+        team_elo_dict = DataGrabber.get_team_elos().to_dict()[0]
         team_elo_dict["date_generated"] = str(date.today())
         db.team_elos.insert_one(team_elo_dict)
 

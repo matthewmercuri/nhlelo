@@ -23,7 +23,7 @@ class ELOStore:
         TODO: fix this, inelegant
         """
         self.team_elo_dict = pd.read_csv(
-            "backend/app/starting_elo.csv", index_col=0
+            "./app/starting_elo.csv", index_col=0
         ).to_dict()["0"]
 
     def set_team_elo(self, team: str, elo: float):
