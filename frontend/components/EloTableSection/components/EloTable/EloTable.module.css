@@ -1,5 +1,67 @@
-.EloTable {
-  background-color: red;
-  height: 100px;
-  width: 100px;
+.eloTableContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.eloTable {
+  width: 100%;
+  table-layout: fixed;
+  max-width: 40rem;
+  margin-top: 1.5rem;
+  /* border-spacing: 0 0.5rem; */
+}
+
+.eloTable th {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.eloTable tr {
+  background-color: var(--primary-bg-offset);
+}
+
+.eloTable tr td {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.endCol {
+  width: 15%;
+}
+
+.eloIndicatorContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.eloIndicatorGood {
+  width: 75%;
+  border-radius: 3px;
+  background-color: var(--success);
+}
+
+.eloIndicatorBad {
+  width: 75%;
+  border-radius: 3px;
+  background-color: var(--fail);
+}
+
+.showAllButton {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0.25rem 0;
+  width: 100%;
+  background-color: var(--accent);
+  text-align: center;
+  border-radius: 2px;
+}
+
+.showAllButton:hover {
+  background-color: var(--accent-hover);
+  cursor: pointer;
 }
