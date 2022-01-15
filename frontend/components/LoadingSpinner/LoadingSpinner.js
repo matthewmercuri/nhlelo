@@ -1,4 +1,3 @@
-import Image from "next/image"
 import styles from "./LoadingSpinner.module.css"
 
 export default function LoadingSpinner({ size }) {
@@ -17,7 +16,7 @@ export default function LoadingSpinner({ size }) {
 
   return (
     <div className={styles.loadingSpinner}>
-      <Image src={"/images/loading-spinner.svg"} alt="loading spinner" height={height} width={width} />
+      <img src={"/images/loading-spinner.svg"} alt="loading spinner" height={height} width={width} />
     </div>
   )
 }
