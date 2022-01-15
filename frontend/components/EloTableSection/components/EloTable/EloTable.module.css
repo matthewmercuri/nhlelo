@@ -9,17 +9,12 @@
   width: 100%;
   table-layout: fixed;
   max-width: 40rem;
-  margin-top: 1.5rem;
-  /* border-spacing: 0 0.5rem; */
+  background-color: var(--primary-bg-offset);
 }
 
 .eloTable th {
   text-align: center;
   font-size: 1.2rem;
-}
-
-.eloTable tr {
-  background-color: var(--primary-bg-offset);
 }
 
 .eloTable tr td {
@@ -37,16 +32,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 0.9rem;
 }
 
 .eloIndicatorGood {
   width: 75%;
+  height: 90%;
   border-radius: 3px;
   background-color: var(--success);
 }
 
 .eloIndicatorBad {
   width: 75%;
+  height: 90%;
   border-radius: 3px;
   background-color: var(--fail);
 }

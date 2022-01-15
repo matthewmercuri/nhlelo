@@ -14,20 +14,20 @@ export default function EloTable() {
 
   return (
     <div className={styles.eloTableContainer}>
-      <table className={styles.eloTable} cellSpacing={0}>
-        <tr>
-          <th className={styles.endCol}>position</th>
-          <th>team</th>
-          <th className={styles.endCol}>elo</th>
-        </tr>
-        {data && data.data && (
-          data.data.map((row, index) => {
+      {data && data.data && !isLoading && (
+        <table className={styles.eloTable} cellSpacing={0}>
+          <tr>
+            <th className={styles.endCol}>position</th>
+            <th>team</th>
+            <th className={styles.endCol}>elo</th>
+          </tr>
+          {data.data.map((row, index) => {
             const teamName = Object.keys(row)[0]
             const teamElo = Math.round(row[teamName])
             const teamRank = index + 1
             const eloStyle = teamElo >= 1500 ? styles.eloIndicatorGood : styles.eloIndicatorBad
 
-            if (teamRank > 10 && !showAll) return null
+            if (teamRank > 15 && !showAll) return null
 
             return (
               <tr key={teamName}>
@@ -40,13 +40,16 @@ export default function EloTable() {
                 </td>
               </tr>
             )
-          })
-        )}
-      </table>
+          })}
+        </table>
+      )}
       {data && data.data && (
         <div onClick={() => setShowAll(!showAll)} className={styles.showAllButton}>
           {!showAll ? "show all" : "collapse all"}
         </div>
+      )}
+      {isLoading && (
+        <div />
       )}
     </div>
   )

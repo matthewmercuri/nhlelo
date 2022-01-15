@@ -39,6 +39,7 @@ html {
   background-color: var(--accent);
   height: 3px;
   margin-top: 0.2rem;
+  margin-bottom: 1rem;
   width: 16rem;
 }
 
