@@ -1,5 +1,18 @@
 .EloTableSection {
   flex-grow: 1;
-  background-color: red;
   width: 100%;
+}
+
+.EloTableSection h1 {
+  color: var(--text-primary);
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  font-weight: normal;
+}
+
+.EloTableContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
