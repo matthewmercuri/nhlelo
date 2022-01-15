@@ -1,16 +1,13 @@
 import { useState } from "react"
 import useSWR from "swr"
 import { BASE_URL, fetcher } from "../../../../services/webapi"
+import LoadingSpinner from "../../../LoadingSpinner"
 import styles from './EloTable.module.css'
 
 export default function EloTable() {
   const { data, error } = useSWR(`${BASE_URL}/teamelotable`, fetcher)
   const [showAll, setShowAll] = useState(false)
   const isLoading = !data && !error
-
-  console.log(data)
-  console.log(isLoading)
-  console.log(showAll)
 
   return (
     <div className={styles.eloTableContainer}>
@@ -49,7 +46,7 @@ export default function EloTable() {
         </div>
       )}
       {isLoading && (
-        <div />
+        <LoadingSpinner size={"large"} />
       )}
     </div>
   )
