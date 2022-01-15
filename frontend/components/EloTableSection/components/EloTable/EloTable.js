@@ -48,6 +48,7 @@ export default function EloTable() {
       {isLoading && (
         <LoadingSpinner size={"large"} />
       )}
+      {error && <p>An error has occured. Please try again later.</p>}
     </div>
   )
 }
