@@ -104,7 +104,13 @@ class Data:
         return x
 
     def _post_process_df(self, df):
-        df["dateTimeEst"] = pd.DatetimeIndex(df["date"]).tz_convert("US/Eastern")
+        # converting dateTimeEst to str because of Mongo, not ideal
+        df["dateEst"] = (
+            pd.DatetimeIndex(df["date"]).tz_convert("US/Eastern").strftime("%Y-%m-%d")
+        )
+        df["timeEst"] = (
+            pd.DatetimeIndex(df["date"]).tz_convert("US/Eastern").strftime("%H-%M-%S")
+        )
         df["awayDecimalOdds"] = 1 / df["awayWinProb"]
         df["homeDecimalOdds"] = 1 / df["homeWinProb"]
 
