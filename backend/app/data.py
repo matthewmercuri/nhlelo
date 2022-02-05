@@ -44,8 +44,9 @@ class Data:
     def _prep_schedule_df(self) -> pd.DataFrame:
         df = NHLAPI.get_schedule_df()
 
-        # removing preseaon games
+        # removing preseaon and all-start games
         df = df[df["gameType"] != "PR"]
+        df = df[df["gameType"] != "A"]
 
         df["date"] = pd.to_datetime(df["date"])
         df["gameEloAway"] = 0
