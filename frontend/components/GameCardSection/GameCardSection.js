@@ -3,8 +3,10 @@ import { BASE_URL, fetcher } from "../../services/webapi"
 import styles from "./GameCardSection.module.css"
 
 export default function GameCardSection() {
-  const { data, error } = useSWR(`${BASE_URL}/teamelotable`, fetcher)
+  const { data, error } = useSWR(`${BASE_URL}/eloschedule?window=close`, fetcher)
   const isLoading = !data && !error
+
+  console.log(data)
 
   return (
     <div className={styles.gameCardSection}>

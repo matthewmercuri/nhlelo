@@ -10,9 +10,9 @@ export default function Home() {
         <EloTableSection />
       </section>
       <div className="fullWidthContainer offsetBg">
-        <section className="mainContent--noMinHeight">
+        <div className="mainContent--noMinHeight">
           <GameCardSection />
-        </section>
+        </div>
       </div>
     </div>
   )

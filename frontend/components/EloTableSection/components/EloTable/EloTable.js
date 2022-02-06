@@ -13,31 +13,35 @@ export default function EloTable() {
     <div className={styles.eloTableContainer}>
       {data && data.data && !isLoading && (
         <table className={styles.eloTable} cellSpacing={0}>
-          <tr>
-            <th className={styles.endCol}>position</th>
-            <th>team</th>
-            <th className={styles.endCol}>elo</th>
-          </tr>
-          {data.data.map((row, index) => {
-            const teamName = Object.keys(row)[0]
-            const teamElo = Math.round(row[teamName])
-            const teamRank = index + 1
-            const eloStyle = teamElo >= 1500 ? styles.eloIndicatorGood : styles.eloIndicatorBad
+          <thead>
+            <tr>
+              <th className={styles.endCol}>position</th>
+              <th>team</th>
+              <th className={styles.endCol}>elo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.data.map((row, index) => {
+              const teamName = Object.keys(row)[0]
+              const teamElo = Math.round(row[teamName])
+              const teamRank = index + 1
+              const eloStyle = teamElo >= 1500 ? styles.eloIndicatorGood : styles.eloIndicatorBad
 
-            if (teamRank > 15 && !showAll) return null
+              if (teamRank > 15 && !showAll) return null
 
-            return (
-              <tr key={teamName}>
-                <td>{teamRank}</td>
-                <td>{teamName}</td>
-                <td>
-                  <div className={styles.eloIndicatorContainer}>
-                    <div className={eloStyle}>{teamElo}</div>
-                  </div>
-                </td>
-              </tr>
-            )
-          })}
+              return (
+                <tr key={teamName}>
+                  <td>{teamRank}</td>
+                  <td>{teamName}</td>
+                  <td>
+                    <div className={styles.eloIndicatorContainer}>
+                      <div className={eloStyle}>{teamElo}</div>
+                    </div>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
         </table>
       )}
       {data && data.data && (
