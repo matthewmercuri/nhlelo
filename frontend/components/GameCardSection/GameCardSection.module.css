@@ -1,0 +1,13 @@
+.gameCardSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.gameCardSection h1 {
+  color: var(--text-primary);
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  font-weight: normal;
+}

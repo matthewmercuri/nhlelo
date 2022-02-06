@@ -35,6 +35,12 @@ html {
   width: 66vw;
 }
 
+.mainContent--noMinHeight {
+  display: flex;
+  flex-direction: column;
+  width: 66vw;
+}
+
 .accentDiv {
   background-color: var(--accent);
   height: 3px;
