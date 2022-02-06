@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.db import db
 from app.data import Data
-from app.utils import get_todays_games
+from app.utils import get_close_games
 
 app = FastAPI()
 
@@ -29,7 +29,10 @@ async def root():
 
 
 @app.get("/eloschedule")
-def elo_table(today: bool = True):
+def elo_table(window: str = "today"):
+    if window not in ["today", "tomorrow", "close"]:
+        raise TypeError(f"Invalid window argument ({window}).")
+
     elo_df = db.elo_table.find_one({"date_generated": str(date.today())})
 
     if elo_df is None:
@@ -47,8 +50,12 @@ def elo_table(today: bool = True):
 
     data = [game for _, game in elo_df.items()]
 
-    if today:
-        data = get_todays_games(data)
+    if window == "today":
+        data = get_close_games(data, "today")
+    elif window == "tomorrow":
+        data = get_close_games(data, "tomorrow")
+    elif window == "close":
+        data = get_close_games(data, "close")
 
     response = {
         "data": data,
