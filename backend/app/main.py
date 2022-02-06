@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.db import db
 from app.data import Data
+from app.utils import get_todays_games
 
 app = FastAPI()
 
@@ -28,7 +29,7 @@ async def root():
 
 
 @app.get("/eloschedule")
-def elo_table():
+def elo_table(today: bool = True):
     elo_df = db.elo_table.find_one({"date_generated": str(date.today())})
 
     if elo_df is None:
@@ -44,8 +45,13 @@ def elo_table():
     date_generated = elo_df.pop("date_generated")
     id = elo_df.pop("id")
 
+    data = [game for _, game in elo_df.items()]
+
+    if today:
+        data = get_todays_games(data)
+
     response = {
-        "data": [game for _, game in elo_df.items()],
+        "data": data,
         "meta": {"date_generated": date_generated, "id": id},
     }
 
