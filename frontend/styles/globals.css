@@ -41,6 +41,17 @@ html {
   width: 66vw;
 }
 
+.fullWidthContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.offsetBg {
+  background-color: var(--primary-bg-offset);
+}
+
 .accentDiv {
   background-color: var(--accent);
   height: 3px;

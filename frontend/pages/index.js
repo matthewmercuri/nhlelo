@@ -9,9 +9,11 @@ export default function Home() {
         <NavBar />
         <EloTableSection />
       </section>
-      <section className="mainContent--noMinHeight">
-        <GameCardSection />
-      </section>
+      <div className="fullWidthContainer offsetBg">
+        <section className="mainContent--noMinHeight">
+          <GameCardSection />
+        </section>
+      </div>
     </div>
   )
 }
