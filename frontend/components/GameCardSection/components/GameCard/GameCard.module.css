@@ -38,6 +38,8 @@
   margin-top: 0.75rem;
   padding: 0 0.25rem 0 0.25rem;
   background-color: var(--accent);
+  border-radius: 3px;
+  text-align: center;
 }
 
 .teamEloGood {
@@ -92,7 +94,7 @@
 @media screen and (max-width: 650px) {
   .gameCard {
     flex-direction: column;
-    height: 20rem;
+    min-height: 25rem;
     width: 95%;
   }
 
