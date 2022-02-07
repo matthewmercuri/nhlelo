@@ -1,5 +1,4 @@
 import pandas as pd
-import pytz
 
 from app.elo import elo_calculator, update_elo
 from app.nhl_api import NHLAPI
@@ -63,7 +62,7 @@ class Data:
     def _is_team_playing_back2back(self, date, df: pd.DataFrame, team: str) -> int:
         yesterday = date + pd.Timedelta(days=-1)
         df = df[(df["awayTeam"] == team) | (df["homeTeam"] == team)]
-        df = df[df["status"] == "Final"]
+        df = df[df["detailedStatus"].isin(["Scheduled", "Final"])]
 
         if yesterday in df["date"].tolist():
             return 1

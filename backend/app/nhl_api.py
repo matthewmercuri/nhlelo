@@ -71,6 +71,7 @@ class NHLAPI:
                     "date": game_object["gameDate"],
                     "gameType": game_object["gameType"],
                     "status": game_object["status"]["abstractGameState"],
+                    "detailedStatus": game_object["status"]["detailedState"],
                     "awayTeam": game_object["teams"]["away"]["team"]["name"],
                     "awayScore": game_object["teams"]["away"]["score"],
                     "homeScore": game_object["teams"]["home"]["score"],
