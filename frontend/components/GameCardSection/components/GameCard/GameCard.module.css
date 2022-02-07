@@ -1,0 +1,74 @@
+.gameCard {
+  background-color: var(--primary-bg);
+  width: 75%;
+  height: 8rem;
+  margin-bottom: 1rem;
+  border-radius: 3px;
+  display: flex;
+}
+
+.homeAwayTag {
+  font-weight: lighter;
+  font-size: 0.8rem;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.teamInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.teamHeader {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.teamElo {
+  margin-top: 0.75rem;
+  padding: 0 0.25rem 0 0.25rem;
+  border-radius: 2px;
+}
+
+.teamEloGood {
+  background-color: var(--success);
+}
+
+.teamEloBad {
+  background-color: var(--fail);
+}
+
+.winPercentage {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.decimalOdds {
+  font-size: 0.7rem;
+}
+
+.matchBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-bg-offset);
+  width: 4rem;
+  height: 4rem;
+}
+
+.matchBoxLeftRounded {
+  border-radius: 10px 0 0 10px;
+}
+
+.matchBoxRightRounded {
+  border-radius: 0 10px 10px 0;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+}

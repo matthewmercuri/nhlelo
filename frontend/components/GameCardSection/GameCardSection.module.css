@@ -11,3 +11,11 @@
   font-size: 2rem;
   font-weight: normal;
 }
+
+.gameCardSectionCards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}

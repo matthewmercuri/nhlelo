@@ -64,11 +64,17 @@ html {
 @media screen and (max-width: 1025px) {
   .mainContent {
     width: 90vw;
-  } 
+  }
+  .mainContent--noMinHeight {
+    width: 90vw;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .mainContent {
     width: 95vw;
-  } 
+  }
+  .mainContent--noMinHeight {
+    width: 95vw;
+  }
 }
