@@ -31,7 +31,6 @@ export default function GameCardSection() {
       <h1>{"tomorrow's games"}</h1>
       <div className="accentDiv" />
       <div className={styles.gameCardSectionCards}>
-        {isLoading && <LoadingSpinner size={"large"} />}
         {!isLoading && data.data.tomorrow.length == 0 && (
           <p className={styles.noGames}>There are no games scheduled for tomorrow.</p>
         )}
