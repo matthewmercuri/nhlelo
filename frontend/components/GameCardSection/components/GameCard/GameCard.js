@@ -8,7 +8,7 @@ export default function GameCard({ gameData }) {
   console.log(gameData)
   return (
     <div className={styles.gameCard}>
-      <div className={styles.left}>
+      <div className={styles.half}>
         <div className={styles.homeAwayTag}>AWAY</div>
         <div className={styles.teamInfo}>
           <p className={styles.teamHeader}>{gameData.awayTeam}</p>
@@ -22,7 +22,7 @@ export default function GameCard({ gameData }) {
           <p className={styles.decimalOdds}>{gameData.awayDecimalOdds.toFixed(2)}</p>
         </div>
       </div>
-      <div className={styles.left}>
+      <div className={styles.half}>
         <div className={`${styles.matchBox} ${styles.matchBoxRightRounded}`}>
           <p className={styles.winPercentage}>{`${Math.round(gameData.homeWinProb * 100)}%`}</p>
           <p className={styles.decimalOdds}>{gameData.homeDecimalOdds.toFixed(2)}</p>

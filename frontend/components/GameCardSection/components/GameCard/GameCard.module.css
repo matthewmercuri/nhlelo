@@ -23,6 +23,8 @@
 .teamHeader {
   font-weight: bold;
   font-size: 1.2rem;
+  text-align: center;
+  margin: 0 0.25rem 0 0.25rem;
 }
 
 .teamElo {
@@ -73,9 +75,39 @@
   border-radius: 0 10px 10px 0;
 }
 
-.left {
+.half {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 50%;
+}
+
+@media screen and (max-width: 1025px) {
+  .gameCard {
+    width: 90%;
+  }
+
+}
+
+@media screen and (max-width: 650px) {
+  .gameCard {
+    flex-direction: column;
+    height: 20rem;
+    width: 95%;
+  }
+
+  .half {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+
+  .matchBoxLeftRounded {
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .matchBoxRightRounded {
+    border-radius: 0 0 10px 10px;
+    
+  }
 }
