@@ -50,15 +50,22 @@ def elo_table(window: str = "close"):
 
     data = [game for _, game in elo_df.items()]
 
+    data_response = {}
     if window == "today":
-        data = get_close_games(data, "today")
+        data_today, _ = get_close_games(data, "today")
+        data_response["today"] = data_today
     elif window == "tomorrow":
-        data = get_close_games(data, "tomorrow")
+        _, data_tomorrow = get_close_games(data, "tomorrow")
+        data_response["tomorrow"] = data_tomorrow
     elif window == "close":
-        data = get_close_games(data, "close")
+        data_today, data_tomorrow = get_close_games(data, "close")
+        data_response["today"] = data_today
+        data_response["tomorrow"] = data_tomorrow
+    else:
+        data_response["full"] = data
 
     response = {
-        "data": data,
+        "data": data_response,
         "meta": {"date_generated": date_generated, "id": id},
     }
 
