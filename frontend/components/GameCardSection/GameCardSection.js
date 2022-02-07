@@ -1,5 +1,6 @@
 import useSWR from "swr"
 import { BASE_URL, fetcher } from "../../services/webapi"
+import LoadingSpinner from "../LoadingSpinner"
 import GameCard from "./components/GameCard"
 import styles from "./GameCardSection.module.css"
 
@@ -12,6 +13,7 @@ export default function GameCardSection() {
       <h1>{"today's games"}</h1>
       <div className="accentDiv" />
       <div className={styles.gameCardSectionCards}>
+        {isLoading && <LoadingSpinner size={"large"} />}
         {!isLoading && data.data.length > 0 && (
           data.data.map(gameData => {
             return (
