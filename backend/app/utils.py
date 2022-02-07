@@ -4,7 +4,7 @@ from zoneinfo import ZoneInfo
 
 def get_close_games(schedule, window):
     """
-    close is games from today, yesterday, and tomorrow
+    close is games from today and tomorrow
     """
 
     todays_schedule = []

@@ -29,8 +29,8 @@ async def root():
 
 
 @app.get("/eloschedule")
-def elo_table(window: str = "today"):
-    if window not in ["today", "tomorrow", "close"]:
+def elo_table(window: str = "close"):
+    if window not in ["today", "tomorrow", "close", "complete"]:
         raise TypeError(f"Invalid window argument ({window}).")
 
     elo_df = db.elo_table.find_one({"date_generated": str(date.today())})
