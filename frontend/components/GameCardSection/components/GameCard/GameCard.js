@@ -5,7 +5,7 @@ export default function GameCard({ gameData }) {
   const goodAwayElo = awayElo > 1500
   const homeElo = Math.round(gameData.gameEloHome)
   const goodHomeElo = homeElo > 1500
-  console.log(gameData)
+
   return (
     <div className={styles.gameCard}>
       <div className={styles.half}>
