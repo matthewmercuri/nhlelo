@@ -19,3 +19,7 @@
   flex-direction: column;
   width: 100%;
 }
+
+.noGames {
+  margin-top: 1.5rem;
+}

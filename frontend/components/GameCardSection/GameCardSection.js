@@ -14,8 +14,29 @@ export default function GameCardSection() {
       <div className="accentDiv" />
       <div className={styles.gameCardSectionCards}>
         {isLoading && <LoadingSpinner size={"large"} />}
-        {!isLoading && data.data.length > 0 && (
-          data.data.map(gameData => {
+        {!isLoading && data.data.today.length == 0 && (
+          <p className={styles.noGames}>There are no games scheduled for today.</p>
+        )}
+        {!isLoading && data.data.today.length > 0 && (
+          data.data.today.map(gameData => {
+            return (
+              <GameCard
+                key={`${gameData.awayTeam}${gameData.dateEst}`}
+                gameData={gameData}
+              />
+            )
+          })
+        )}
+      </div>
+      <h1>{"tomorrow's games"}</h1>
+      <div className="accentDiv" />
+      <div className={styles.gameCardSectionCards}>
+        {isLoading && <LoadingSpinner size={"large"} />}
+        {!isLoading && data.data.tomorrow.length == 0 && (
+          <p className={styles.noGames}>There are no games scheduled for tomorrow.</p>
+        )}
+        {!isLoading && data.data.tomorrow.length > 0 && (
+          data.data.tomorrow.map(gameData => {
             return (
               <GameCard
                 key={`${gameData.awayTeam}${gameData.dateEst}`}
