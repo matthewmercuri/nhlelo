@@ -15,7 +15,7 @@ export default function GameCard({ gameData }) {
           <p className={`${styles.teamElo} ${goodAwayElo ? styles.teamEloGood : styles.teamEloBad}`}>
             {awayElo}
           </p>
-          {gameData.homeB2b != 0 && <p className={styles.b2bBadge}>B2B</p>}
+          {gameData.awayB2b != 0 && <p className={styles.b2bBadge}>B2B</p>}
         </div>
         <div className={`${styles.matchBox} ${styles.matchBoxLeftRounded}`}>
           <p className={styles.winPercentage}>{`${Math.round(gameData.awayWinProb * 100)}%`}</p>
