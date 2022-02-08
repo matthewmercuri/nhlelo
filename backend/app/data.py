@@ -62,7 +62,7 @@ class Data:
     def _is_team_playing_back2back(self, date, df: pd.DataFrame, team: str) -> int:
         yesterday = date + pd.Timedelta(days=-1)
         df = df[(df["awayTeam"] == team) | (df["homeTeam"] == team)]
-        df = df[df["detailedStatus"].isin(["Scheduled", "Final"])]
+        df = df[df["detailedStatus"].isin(["Scheduled", "Final", "In Progress"])]
 
         if yesterday in df["date"].tolist():
             return 1
